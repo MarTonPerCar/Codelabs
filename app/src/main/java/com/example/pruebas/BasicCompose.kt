@@ -1,5 +1,6 @@
 package com.example.pruebas
 
+import android.content.res.Configuration
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -80,8 +81,14 @@ fun Greeting2(name: String, modifier: Modifier = Modifier) {
                     .weight(1f)
                     .padding(bottom = extraPadding.coerceAtLeast(0.dp))
             ) {
-                Text(text = "Hello ")
-                Text(text = name, style = MaterialTheme.typography.headlineMedium)
+                Text(
+                    text = "Hello ",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+                Text(
+                    text = name,
+                    style = MaterialTheme.typography.headlineMedium
+                )
             }
             ElevatedButton(
                 onClick = { expanded = !expanded }
@@ -95,10 +102,15 @@ fun Greeting2(name: String, modifier: Modifier = Modifier) {
 @Preview(
     showBackground = true,
     widthDp = 320,
-    uiMode = UI_MODE_NIGHT_YES,
-    name = "GreetingPreviewDark"
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "MyAppDark"
 )
-@Preview(showBackground = true, widthDp = 320)
+@Preview(
+    showBackground = true,
+    widthDp = 320,
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    name = "MyAppLight"
+)
 @Composable
 fun GreetingPreview2() {
     PruebasTheme {
@@ -118,7 +130,10 @@ fun OnboardingScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Welcome to the Basics Codelab!")
+        Text(
+            text = "Welcome to the Basics Codelab!",
+            style = MaterialTheme.typography.titleLarge
+        )
         Button(
             modifier = Modifier
                 .padding(vertical = 24.dp),
@@ -128,14 +143,4 @@ fun OnboardingScreen(
         }
     }
 
-}
-
-
-
-@Preview(showBackground = true, widthDp = 320, heightDp = 320)
-@Composable
-fun OnboardingPreview() {
-    PruebasTheme {
-        OnboardingScreen(onContinueClicked = {})
-    }
 }
