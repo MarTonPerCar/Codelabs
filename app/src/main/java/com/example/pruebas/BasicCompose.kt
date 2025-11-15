@@ -1,10 +1,10 @@
 package com.example.pruebas
 
 import android.content.res.Configuration
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
@@ -63,6 +63,7 @@ fun MyApp(
 @Composable
 fun Greeting2(name: String, modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(false) }
+
     val extraPadding by animateDpAsState(
         if (expanded) 48.dp else 0.dp,
         animationSpec = spring(
@@ -71,25 +72,27 @@ fun Greeting2(name: String, modifier: Modifier = Modifier) {
         )
     )
 
+    val backgroundColor by animateColorAsState(
+        targetValue = if (expanded) MaterialTheme.colorScheme.onBackground
+        else MaterialTheme.colorScheme.primaryContainer,
+        label = "background color"
+    )
+
     Surface(
-        color = MaterialTheme.colorScheme.primary,
+        color = backgroundColor,
         modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)
     ) {
         Row(modifier = Modifier.padding(24.dp)) {
+
             Column(
                 modifier = Modifier
                     .weight(1f)
                     .padding(bottom = extraPadding.coerceAtLeast(0.dp))
             ) {
-                Text(
-                    text = "Hello ",
-                    style = MaterialTheme.typography.bodyLarge
-                )
-                Text(
-                    text = name,
-                    style = MaterialTheme.typography.headlineMedium
-                )
+                Text(text = "Hello")
+                Text(text = name, style = MaterialTheme.typography.headlineMedium)
             }
+
             ElevatedButton(
                 onClick = { expanded = !expanded }
             ) {
